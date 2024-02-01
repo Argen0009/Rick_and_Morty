@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Home Work 2</string>
+    <string name="alive">Alive</string>
+    <string name="name">Name</string>
+    <string name="location">Last known location:</string>
+    <string name="interdimensional_cable">Interdimensional Cable</string>
+    <string name="interdimensional_cable_2_tempting_fate">Interdimensional Cable 2</string>
+    <string name="first_seen_in">First seen in:</string>
+</resources>
