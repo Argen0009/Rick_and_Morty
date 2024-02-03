@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import mbk.io.homework2.data.model.Characte
+import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ActivityDetailsBinding
 import mbk.io.homework2.keys.CharacterKeys
 
@@ -14,7 +14,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
 
-    private val viewModel: DetailsViewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this)[DetailsViewModel::class.java]
     }
 
@@ -33,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCharacterData(it: Characte) = with(binding) {
+    private fun setCharacterData(it: Character) = with(binding) {
         tvCharacterName.text = it.name
         aliveTv.text = it.status
         Glide.with(imgCircleStatus).load(it.image).circleCrop().into(img)

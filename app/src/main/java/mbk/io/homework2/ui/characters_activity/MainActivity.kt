@@ -5,25 +5,26 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import mbk.io.homework2.ui.adapter.RickAdapter
 import mbk.io.homework2.databinding.ActivityMainBinding
 import mbk.io.homework2.ui.secondActivity.DetailsActivity
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val adapter = RickAdapter(this::onClickItem)
 
-    private val viewModel: MainViewModel by lazy {
+    private val viewModel by lazy{
         ViewModelProvider(this)[MainViewModel::class.java]
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecycler()
-        viewModel.getCaracters().observe(this) { character ->
+
+        viewModel.getCharacters().observe(this) { character ->
             adapter.setCharacters(character)
         }
     }

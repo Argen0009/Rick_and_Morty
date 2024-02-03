@@ -1,7 +1,5 @@
 package mbk.io.homework2.keys
 
-class CharacterKeys {
-    companion object {
+object CharacterKeys {
         const val CHARACTER_ID_ARG = "characterIdArg"
     }
-}

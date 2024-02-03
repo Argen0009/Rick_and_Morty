@@ -2,19 +2,11 @@ package mbk.io.homework2.data.model
 
 import java.io.Serializable
 
-data class CharacterResponse<Result>(
-        val info: Info,
-        val results: List<Result>,
+data class CharacterResponse(
+        val results: List<Character>,
     ):Serializable
 
-    data class Info(
-        val count: Int,
-        val next: String,
-        val pages: Int,
-        val prev: Any,
-    ):Serializable
-
-    data class Characte(
+    data class Character(
         val created: String,
         val episode: List<String>,
         val gender: String,

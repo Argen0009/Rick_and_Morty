@@ -1,9 +1,10 @@
 package mbk.io.homework2.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import mbk.io.homework2.data.api.CartoonApiService
-import mbk.io.homework2.data.model.Characte
+import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.data.model.CharacterResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,42 +12,44 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class RMRepository @Inject constructor(private val api: CartoonApiService) {
-    fun getCharacters(): MutableLiveData<List<Characte>> {
-        val characters = MutableLiveData<List<Characte>>()
+    fun getCharacters(): LiveData<List<Character>> {
+        val characters = MutableLiveData<List<Character>>()
 
-        api.getCharacters().enqueue(object : retrofit2.Callback<CharacterResponse<Characte>> {
+        api.getCharacters().enqueue(object : Callback<CharacterResponse> {
             override fun onResponse(
-                call: Call<CharacterResponse<Characte>>,
-                response: Response<CharacterResponse<Characte>>,
+                call: Call<CharacterResponse>,
+                response: Response<CharacterResponse>,
             ) {
-                if (response.isSuccessful && response.body() != null) {
+                if (response.isSuccessful && response.body() != null && response.code() in 200 .. 300) {
                     response.body()?.let {
                         characters.postValue(it.results)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<CharacterResponse<Characte>>, t: Throwable) {
-                print(t.message.toString())
+            override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
+                Log.e("ololo",t.message.toString())
             }
         })
         return characters
     }
 
-    fun getCharacter(id: Int): LiveData<Characte> {
-        val characteLv = MutableLiveData<Characte>()
-        api.getCharacter(id).enqueue(object : Callback<Characte> {
+    fun getCharacter(id: Int): LiveData<Character> {
+        val characteLv = MutableLiveData<Character>()
+
+        api.getCharacter(id).enqueue(object : Callback<Character> {
             override fun onResponse(
-                call: Call<Characte>,
-                response: Response<Characte>,
+                call: Call<Character>,
+                response: Response<Character>,
             ) {
+                if (response.isSuccessful && response.body() != null && response.code() in 200 .. 300)
                 response.body()?.let {
                     characteLv.postValue(it)
                 }
             }
 
-            override fun onFailure(call: Call<Characte>, t: Throwable) {
-                print(t.message.toString())
+            override fun onFailure(call: Call<Character>, t: Throwable) {
+                Log.e("ololo",t.message.toString())
             }
 
         })

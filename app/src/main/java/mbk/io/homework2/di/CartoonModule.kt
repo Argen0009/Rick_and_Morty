@@ -32,7 +32,7 @@ object CartoonModule {
 
     @Provides
     fun provideOkHttpClient(
-        interceptor: Interceptor,
+        interceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .writeTimeout(10L, TimeUnit.SECONDS)

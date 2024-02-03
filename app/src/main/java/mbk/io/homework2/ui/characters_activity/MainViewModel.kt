@@ -4,15 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import mbk.io.homework2.data.RMRepository
-import mbk.io.homework2.data.model.Characte
+import mbk.io.homework2.data.model.Character
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val repository: RMRepository,
+class MainViewModel @Inject constructor (
+    private val repository: RMRepository
 ) : ViewModel() {
-
-    fun getCaracters(): LiveData<List<Characte>> {
+    fun getCharacters(): LiveData<List<Character>> {
         return repository.getCharacters()
     }
 }
