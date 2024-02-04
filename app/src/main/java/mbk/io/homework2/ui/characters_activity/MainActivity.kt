@@ -18,9 +18,11 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by lazy{
         ViewModelProvider(this)[MainViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.recyclerView.adapter =adapter
         setContentView(binding.root)
         setupRecycler()
 

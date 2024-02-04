@@ -47,18 +47,19 @@ class RickAdapter(
 
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(characte: Character) {
-            binding.nameTv.text = characte.name
-            binding.aliveTv.text = characte.gender
-            Glide.with(binding.img).load(characte.image).into(binding.img)
+            binding.tvName.text = characte.name
+            binding.aliveTv.text = characte.status
+            binding.gender.text = characte.gender
+            Glide.with(binding.ivImg).load(characte.image).into(binding.ivImg)
 
-            binding.CardView.setOnClickListener {
+            binding.cardView.setOnClickListener {
                 onCharacterClick(characte.id)
             }
 
             when (characte.status) {
-                "Alive" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_white)
+                "Alive" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_green)
                 "Dead" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_red)
-                "unknown" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_green)
+                "unknown" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_white)
             }
         }
     }

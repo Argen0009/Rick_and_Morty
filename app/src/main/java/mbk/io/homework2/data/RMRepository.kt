@@ -42,7 +42,6 @@ class RMRepository @Inject constructor(private val api: CartoonApiService) {
                 call: Call<Character>,
                 response: Response<Character>,
             ) {
-                if (response.isSuccessful && response.body() != null && response.code() in 200 .. 300)
                 response.body()?.let {
                     characteLv.postValue(it)
                 }
