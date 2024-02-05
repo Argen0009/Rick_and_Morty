@@ -1,16 +1,19 @@
 package mbk.io.homework2.ui.secondActivity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import mbk.io.homework2.R
 import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ActivityDetailsBinding
 import mbk.io.homework2.keys.CharacterKeys
 
 @AndroidEntryPoint
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
 
@@ -22,6 +25,7 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initClickers()
 
 
         val id = intent.getIntExtra(CharacterKeys.CHARACTER_ID_ARG, 0)
@@ -33,11 +37,29 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
+    private fun initClickers() {
+        binding.container.setOnClickListener {
+            if (binding.exampleData.visibility == View.GONE && binding.exampleName.visibility == View.GONE) {
+                binding.exampleData.visibility = View.VISIBLE
+                binding.data.visibility = View.VISIBLE
+                binding.exampleName.visibility = View.VISIBLE
+                binding.tvName.visibility = View.VISIBLE
+            } else {
+                binding.exampleData.visibility = View.GONE
+                binding.data.visibility = View.GONE
+                binding.exampleName.visibility = View.GONE
+                binding.tvName.visibility = View.GONE
+            }
+        }
+    }
+
     private fun setCharacterData(it: Character) = with(binding) {
         tvCharacterName.text = it.name
+        tvSpecies.text = it.species
         aliveTv.text = it.status
-        Glide.with(imgCircleStatus).load(it.image).circleCrop().into(img)
-
+        tvGenderAnswer.text = it.gender
+        tvLastKnowLocationAnswer.text = it.location.name
+        tvFirstSeenInAnswer.text = it.origin.name
     }
 
     companion object {

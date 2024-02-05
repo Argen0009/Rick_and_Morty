@@ -22,7 +22,8 @@ android:layout_marginVertical="4dp">
         android:id="@+id/ivImg"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/img"/>
+        android:src="@drawable/img"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

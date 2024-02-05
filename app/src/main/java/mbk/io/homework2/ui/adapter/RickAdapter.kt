@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import mbk.io.homework2.CharacterStatus
 import mbk.io.homework2.R
 import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ItemCardBinding
+import java.util.Locale
 
 class RickAdapter(
     private val onCharacterClick: (Int) -> Unit,
@@ -56,11 +58,15 @@ class RickAdapter(
                 onCharacterClick(characte.id)
             }
 
-            when (characte.status) {
-                "Alive" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_green)
-                "Dead" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_red)
-                "unknown" -> binding.imgCircleStatus.setBackgroundResource(R.drawable.circle_white)
+            when (CharacterStatus.valueOf(characte.status.uppercase(Locale.getDefault()))) {
+                CharacterStatus.ALIVE -> binding.imgCircleStatus.setBackgroundResource(
+                    CharacterStatus.ALIVE.drawableResource)
+                CharacterStatus.DEAD -> binding.imgCircleStatus.setBackgroundResource(
+                    CharacterStatus.DEAD.drawableResource)
+                CharacterStatus.UNKNOWN -> binding.imgCircleStatus.setBackgroundResource(
+                    CharacterStatus.UNKNOWN.drawableResource)
             }
+
         }
     }
 }

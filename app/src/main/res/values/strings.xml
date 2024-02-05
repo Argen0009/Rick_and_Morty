@@ -6,4 +6,9 @@
     <string name="interdimensional_cable">Interdimensional Cable</string>
     <string name="interdimensional_cable_2_tempting_fate">Interdimensional Cable 2</string>
     <string name="first_seen_in">First seen in:</string>
+    <string name="last_known_locatoin">Last known locatoin:</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="citadel_of_ricks">Citadel of Ricks</string>
+    <string name="air">Air date</string>
 </resources>
