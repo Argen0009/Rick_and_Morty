@@ -1,4 +1,6 @@
-package mbk.io.homework2
+package mbk.io.homework2.utils
+
+import mbk.io.homework2.R
 
 
 enum class CharacterStatus(val drawableResource: Int) {

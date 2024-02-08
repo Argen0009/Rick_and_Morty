@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import mbk.io.homework2.CharacterStatus
-import mbk.io.homework2.R
+import mbk.io.homework2.utils.CharacterStatus
 import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ItemCardBinding
 import java.util.Locale
@@ -44,7 +43,6 @@ class RickAdapter(
 
     class CharacterViewHolder(
         private val binding: ItemCardBinding,
-
         private val onCharacterClick: (Int) -> Unit
 
     ) : RecyclerView.ViewHolder(binding.root) {
