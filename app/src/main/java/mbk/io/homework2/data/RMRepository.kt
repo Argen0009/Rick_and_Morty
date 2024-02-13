@@ -10,12 +10,13 @@ import mbk.io.homework2.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import javax.inject.Inject
 
-class RMRepository @Inject constructor(private val api: CartoonApiService) {
-    fun getCharacters(): LiveData<Resource<List<Character>>> {
+
+class RMRepository (private val api: CartoonApiService) {
+    fun getCharacters(): MutableLiveData<Resource<List<Character>>> {
         val characters = MutableLiveData<Resource<List<Character>>>()
         characters.postValue(Resource.Loading())
+
         api.getCharacters().enqueue(object : Callback<CharacterResponse> {
             override fun onResponse(
                 call: Call<CharacterResponse>,
@@ -43,7 +44,7 @@ class RMRepository @Inject constructor(private val api: CartoonApiService) {
         api.getCharacter(id).enqueue(object : Callback<Character> {
             override fun onResponse(
                 call: Call<Character>,
-                response: Response<Character>,
+                response: Response<Character>
             ) {
                 response.body()?.let {
                     characteLv.postValue(it)

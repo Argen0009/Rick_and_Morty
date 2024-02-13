@@ -5,23 +5,19 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
-import mbk.io.homework2.ui.adapter.RickAdapter
 import mbk.io.homework2.databinding.ActivityMainBinding
+import mbk.io.homework2.ui.adapter.RickAdapter
 import mbk.io.homework2.ui.secondActivity.DetailsActivity
 import mbk.io.homework2.utils.Resource
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val adapter = RickAdapter(this::onClickItem)
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    private val viewModel by viewModel<CharacterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +26,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupRecycler()
 
-        viewModel.getCharacters().observe(this) { state ->
-            binding.progressIndicator.isVisible = state is Resource.Loading
+       viewModel.getCharacters().observe(this) { state ->
+            binding.progressIndicator.isVisible = state is Resource.Loading<*>
             when (state) {
-                is Resource.Error -> {
+                is Resource.Error<*> -> {
                     Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
                 }
 
-                is Resource.Loading -> {
+                is Resource.Loading<*> -> {
                 }
 
-                is Resource.Success -> {
+                is Resource.Success<*> -> {
                     if (state.data != null) {
-                        adapter.setCharacters(state.data)
+                        adapter.submitList(state.data)
                     }
                 }
             }

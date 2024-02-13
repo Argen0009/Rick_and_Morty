@@ -8,8 +8,7 @@ import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.utils.Resource
 import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor (
+class MainViewModel (
     private val repository: RMRepository
 ) : ViewModel() {
     fun getCharacters(): LiveData<Resource<List<Character>>> {

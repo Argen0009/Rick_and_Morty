@@ -1,57 +1,68 @@
 package mbk.io.homework2.di
-
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import mbk.io.homework2.BuildConfig
+import mbk.io.homework2.data.RMRepository
 import mbk.io.homework2.data.api.CartoonApiService
-import okhttp3.Interceptor
+import mbk.io.homework2.ui.characters_activity.MainViewModel
+import mbk.io.homework2.ui.secondActivity.DetailsViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Array.get
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object CartoonModule {
+val CartoonModule = module {
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+    single {
+        provideRetrofit(get())
     }
 
-    @Provides
-    fun provideOkHttpClient(
-        interceptor: HttpLoggingInterceptor,
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .writeTimeout(10L, TimeUnit.SECONDS)
-            .readTimeout(10L, TimeUnit.SECONDS)
-            .connectTimeout(10L, TimeUnit.SECONDS)
-            .callTimeout(10L, TimeUnit.SECONDS)
-            .addInterceptor(interceptor)
-            .build()
+    factory {
+        provideOkHttpClient(get())
     }
 
-    @Provides
-    fun provideInterceptor(): HttpLoggingInterceptor {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return interceptor
+    single {
+        provideInterceptor()
+    }
+    single {
+        providesCartoonApiService(get())
     }
 
-    @Provides
-    fun providesCartoonApiService(retrofit: Retrofit): CartoonApiService {
-        return retrofit.create(CartoonApiService::class.java)
+    single {
+        RMRepository(get())
+    }
+    viewModel {
+        MainViewModel(get())
+    }
+    viewModel {
+        DetailsViewModel(get())
     }
 }
+
+fun provideRetrofit(
+    okHttpClient: OkHttpClient
+): Retrofit =
+    Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+
+fun provideOkHttpClient(
+    interceptor: HttpLoggingInterceptor,
+): OkHttpClient =
+    OkHttpClient.Builder()
+        .writeTimeout(10L, TimeUnit.SECONDS)
+        .readTimeout(10L, TimeUnit.SECONDS)
+        .connectTimeout(10L, TimeUnit.SECONDS)
+        .callTimeout(10L, TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
+        .build()
+
+fun provideInterceptor(): HttpLoggingInterceptor =
+    HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+
+
+fun providesCartoonApiService(retrofit: Retrofit): CartoonApiService =
+    retrofit.create(CartoonApiService::class.java)

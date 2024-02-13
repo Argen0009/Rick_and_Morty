@@ -2,24 +2,17 @@ package mbk.io.homework2.ui.secondActivity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import dagger.hilt.android.AndroidEntryPoint
-import mbk.io.homework2.R
+import androidx.lifecycle.viewmodel.viewModelFactory
 import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ActivityDetailsBinding
 import mbk.io.homework2.keys.CharacterKeys
 
-@AndroidEntryPoint
 class DetailsActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[DetailsViewModel::class.java]
-    }
+    private val viewModel: DetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
