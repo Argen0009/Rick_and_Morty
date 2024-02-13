@@ -13,30 +13,31 @@ import java.lang.reflect.Array.get
 import java.util.concurrent.TimeUnit
 
 val CartoonModule = module {
-
-    single {
-        provideRetrofit(get())
+    val ViewModelModule = module {
+        viewModel {
+            MainViewModel()
+        }
+        viewModel {
+            DetailsViewModel(get())
+        }
     }
 
-    factory {
-        provideOkHttpClient(get())
+    val RepositoryModule = module {
+        single {
+            providesCartoonApiService(get())
+        }
     }
 
-    single {
-        provideInterceptor()
-    }
-    single {
-        providesCartoonApiService(get())
-    }
-
-    single {
-        RMRepository(get())
-    }
-    viewModel {
-        MainViewModel(get())
-    }
-    viewModel {
-        DetailsViewModel(get())
+    val NetworkModule = module {
+        single {
+            provideRetrofit(get())
+        }
+        factory {
+            provideOkHttpClient(get())
+        }
+        single {
+            provideInterceptor()
+        }
     }
 }
 
