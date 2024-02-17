@@ -1,9 +1,9 @@
 package mbk.io.homework2
 
-import mbk.io.homework2.di.cartoonModel
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import android.app.Application
+import mbk.io.homework2.di.CartoonModule
+import org.koin.android.ext.koin.androidContext
 
 
 class App : Application() {
@@ -11,7 +11,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(cartoonModel)
+            modules(CartoonModule)
         }
     }
 }

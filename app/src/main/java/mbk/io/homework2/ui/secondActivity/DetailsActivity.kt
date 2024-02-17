@@ -7,12 +7,14 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import mbk.io.homework2.data.model.Character
 import mbk.io.homework2.databinding.ActivityDetailsBinding
 import mbk.io.homework2.keys.CharacterKeys
+import mbk.io.homework2.ui.characters_activity.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsBinding
 
-    private val viewModel: DetailsViewModel by viewModel()
+    private val viewModel by viewModel<DetailsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
